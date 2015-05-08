@@ -1,7 +1,7 @@
 var launcher = require('./')
 var test = require('tape')
 
-test('detection test', function (t) {
+test('detection check', function (t) {
     var expected = {}
 
     process.argv.slice(2).forEach( function( name ) {
