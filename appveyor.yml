@@ -28,9 +28,9 @@ test_script:
   # Output useful info for debugging.
   - node --version && npm --version
   # run tests
-  - cmd: npm test | tap-spec
+  - cmd: npm test
   # check detection got them all
-  - cmd: node spot.js chrome firefox ie | tap-spec
+  - cmd: node spot.js chrome firefox ie
 
 # Don't actually build.
 build: off
