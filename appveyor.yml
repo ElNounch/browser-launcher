@@ -1,0 +1,43 @@
+version: 1.0.0-{build}
+
+# Stop at first failure ?
+#matrix:
+#  fast_finish: true
+
+environment:
+  matrix:
+    # Test against thus versions of Node.js
+    - nodejs_version: 0.8
+    - nodejs_version: 0.10
+    - nodejs_version: 0.12
+    # io.js
+    - nodejs_version: 1
+
+# Install scripts. (runs after repo cloning)
+install:
+  # Get the latest stable version of Node.js or io.js
+  - ps: Install-Product node $env:nodejs_version
+  # Update npm itself
+  - npm install -g npm
+  - set PATH=%APPDATA%\npm;%PATH%
+  # Install modules
+  - npm install
+
+# Post-install test scripts.
+test_script:
+  # Output useful info for debugging.
+  - node --version && npm --version
+  # check detection
+  - cmd: node spot.js chrome firefox ie headlessie | tap-spec
+  # run tests
+  - cmd: npm test | tap-spec
+
+# Don't actually build.
+build: off
+
+# Caching npm parts
+cache:
+  # %APPDATA%
+  - C:\Users\appveyor\AppData\Roaming\npm\node_modules -> package.json  # global npm modules
+  - C:\Users\appveyor\AppData\Roaming\npm-cache -> package.json         # npm cache
+  - node_modules -> package.json                                        # local npm modules
