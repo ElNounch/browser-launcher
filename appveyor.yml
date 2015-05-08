@@ -30,7 +30,7 @@ test_script:
   # run tests
   - cmd: npm test | tap-spec
   # check detection got them all
-  - cmd: node spot.js firefox ie | tap-spec
+  - cmd: node spot.js chrome firefox ie | tap-spec
 
 # Don't actually build.
 build: off

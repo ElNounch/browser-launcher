@@ -9,19 +9,19 @@ function createRandomLocalAddress() {
     return '127.' + upTo(255) + '.' + upTo(255) + '.' + (upTo(252) + 2)
 }
 
-test('detection test', function (t) {
+test('detection test', function (tM) {
     launcher(function (err,launch) {
-        t.ok( !err, 'no error while scanning for browsers' )
+        tM.ok( !err, 'no error while scanning for browsers' )
         launch.browsers.local.forEach( function( brw ) {
-            t.skip( 'detected ' + brw.name + ' version ' + brw.version )
-            checkLauncher( t, launch, brw.name )
+            tM.skip( 'detected ' + brw.name + ' version ' + brw.version )
+            checkLauncher( tM, launch, brw.name )
         })
-        t.end()
+        tM.end()
     })
 })
 
-function checkLauncher( t, launch, browser ) {
-    t.test('testing ' + browser, { timeout: 30000 }, function (t) {
+function checkLauncher( tM, launch, browser ) {
+    tM.test('testing ' + browser, { timeout: 30000 }, function (t) {
         t.plan(5)
         var app = express()
         var server
