@@ -19,7 +19,7 @@ install:
   - ps: Install-Product node $env:nodejs_version
   # Update npm itself
   - npm install -g npm
-  - set PATH=%APPDATA%\npm;%PATH%
+  - set PATH=%APPDATA%\npm;%APPVEYOR_BUILD_FOLDER%\node_modules\.bin;%PATH%
   # Install modules
   - npm install
 
