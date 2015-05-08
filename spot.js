@@ -19,7 +19,7 @@ test('detection test', function (t) {
 			}
 		})
 		for( notfound in expected ) {
-			t.fail( 'not found ' + notfound )
+			t.fail( 'didn\'t found ' + notfound )
 		}
 		t.end()
 	});

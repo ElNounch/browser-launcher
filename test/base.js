@@ -31,10 +31,12 @@ function checkLauncher( t, launch, browser ) {
         var local_addr = createRandomLocalAddress()
 
         app.get('/entrance', function (req, res) {
+          res.setHeader( 'Connection', 'close' )
           res.send('<html><head><script>location.href="/javascript_passed"</script><body></body></html>')
           t.pass('entrance page accessed')
         })
         app.get('/javascript_passed', function (req, res) {
+          res.setHeader( 'Connection', 'close' )
           res.send('Job done !')
           t.pass('javascript worked')
           job_done = true
