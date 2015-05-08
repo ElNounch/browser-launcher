@@ -31,13 +31,17 @@ function checkLauncher( t, launch, browser ) {
         var local_addr = createRandomLocalAddress()
 
         app.get('/entrance', function (req, res) {
-          res.setHeader( 'Connection', 'close' )
+          res.setHeader('Connection', 'close')
+          res.setHeader('Content-Type', 'text/html')
           res.send('<html><head><script>location.href="/javascript_passed"</script><body></body></html>')
+          res.end()
           t.pass('entrance page accessed')
         })
         app.get('/javascript_passed', function (req, res) {
-          res.setHeader( 'Connection', 'close' )
+          res.setHeader('Connection', 'close')
+          res.setHeader('Content-Type', 'text/plain')
           res.send('Job done !')
+          res.end()
           t.pass('javascript worked')
           job_done = true
           clearTimeout( timer )
@@ -52,21 +56,17 @@ function checkLauncher( t, launch, browser ) {
             server.close()
         }, 25000)
 
-        launch(
-            'http://' + local_addr + ':8000/entrance',
-            {
-                browser: browser
-            },
-            function(err, pid) {
-                t.ok( !err, 'no error while launching browser' )
-                proc = pid
+        var opts = { browser: browser }
+        launch( 'http://' + local_addr + ':8000/entrance', opts, function(err, pid) {
+            t.ok( !err, 'no error while launching browser' )
+            proc = pid
 
-                proc.on('exit', function onBrowserExit( code, signal ) {
-                    if( job_done ) {
-                        t.ok( code === null, 'exit code is correct')
-                        t.ok( signal === 'SIGTERM', 'killed by signal')
-                    }
-                })
+            proc.on('exit', function onBrowserExit( code, signal ) {
+                if( job_done ) {
+                    t.ok( code === null, 'exit code is correct')
+                    t.ok( signal === 'SIGTERM', 'killed by signal')
+                }
             })
+        })
     })
 }
