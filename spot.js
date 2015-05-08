@@ -12,14 +12,14 @@ test('detection test', function (t) {
 		t.pass('got detection data')
 		available.forEach( function( brw ) {
 			if ( expected[brw.name] ) {
-				t.pass( 'found ' + brw.name + ' version ' + brw.version )
+				t.pass( 'found "' + brw.name + '" version ' + brw.version )
 				delete expected[brw.name]
 			} else {
-				t.fail( 'unexpected ' + brw.name + ' version ' + brw.version )
+				t.fail( 'unexpected "' + brw.name + '" version ' + brw.version, { skip: true } )
 			}
 		})
 		for( notfound in expected ) {
-			t.fail( 'didn\'t found ' + notfound )
+			t.fail( 'didn\'t found "' + notfound + '"')
 		}
 		t.end()
 	});
