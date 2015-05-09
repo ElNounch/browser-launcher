@@ -5,6 +5,7 @@ version: 1.0.0-{build}
 #  fast_finish: true
 
 environment:
+  - phantomjs_version: 2.0.0
   matrix:
     # Test against thus versions of Node.js
     - nodejs_version: 0.12
@@ -19,16 +20,21 @@ install:
   - ps: Install-Product node $env:nodejs_version
   # Update npm itself
   - npm install -g npm
-  - set PATH=%APPDATA%\npm;%APPVEYOR_BUILD_FOLDER%\node_modules\.bin;%PATH%
+    set PATH=%APPDATA%\npm;%APPVEYOR_BUILD_FOLDER%\node_modules\.bin;%PATH%
   # Install modules
   - npm install
+  # Grab phantomjs
+  - ps: If ( -Not (Get-Command "phantomjs.exe" -ErrorAction SilentlyContinue) ) {
+      Start-FileDownload ('https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-' + $env:phantomjs_version + '-windows.zip') -FileName ($env:TEMP + '\phantomjs-windows.zip')
+      7z e ($env:TEMP + '\phantomjs-windows.zip') -o($env:APPVEYOR_BUILD_FOLDER + '\node_modules\.bin') -r phantomjs.exe
+    }
 
 # Post-install test scripts.
 test_script:
   # Output useful info for debugging.
   - node --version && npm --version
   # check detection got them all
-  - cmd: node spot.js chrome firefox ie
+  - cmd: node spot.js firefox ie
   # run tests
   - cmd: npm test
 

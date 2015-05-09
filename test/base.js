@@ -11,11 +11,15 @@ function createRandomLocalAddress() {
 
 test('detection test', function (tM) {
     launcher(function (err,launch) {
-        tM.ok( !err, 'scanned for browsers' )
-        launch.browsers.local.forEach( function( brw ) {
-            tM.skip( 'detected ' + brw.name + ' version ' + brw.version )
-            checkLauncher( tM, launch, brw.name )
-        })
+        if( err ) {
+            tM.fail( 'failed scanning for browsers :' + err )
+        } else {
+            tM.pass( 'successfully scanned for browsers' )
+            launch.browsers.local.forEach( function( brw ) {
+                tM.skip( 'detected ' + brw.name + ' version ' + brw.version )
+                checkLauncher( tM, launch, brw.name )
+            })
+        }
         tM.end()
     })
 })
