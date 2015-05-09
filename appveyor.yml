@@ -20,14 +20,14 @@ install:
   - ps: Install-Product node $env:nodejs_version
   # Update npm itself
   - npm install -g npm &&
-    set PATH=%APPDATA%\npm;%APPVEYOR_BUILD_FOLDER%\node_modules\.bin;%PATH%
+    set PATH=%APPDATA%\npm;%APPVEYOR_BUILD_FOLDER%\local-build-bin;%APPVEYOR_BUILD_FOLDER%\node_modules\.bin;%PATH%
   # Install modules
   - npm install
   # Grab phantomjs
   - ps: |
       If ( -Not (Get-Command "phantomjs.exe" -ErrorValue null -ErrorAction SilentlyContinue) ) {
         Start-FileDownload ('https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-' + $env:phantomjs_version + '-windows.zip') -FileName ($env:TEMP + '\phantomjs-windows.zip')
-        7z e ($env:TEMP + '\phantomjs-windows.zip') -o($env:APPVEYOR_BUILD_FOLDER + '\node_modules\.bin') -r phantomjs.exe
+        & 7z e ($env:TEMP + '\phantomjs-windows.zip') -o($env:APPVEYOR_BUILD_FOLDER + '\local-build-bin') -r phantomjs.exe
       }
 
 # Post-install test scripts.
@@ -48,3 +48,4 @@ cache:
   - C:\Users\appveyor\AppData\Roaming\npm\node_modules -> package.json  # global npm modules
   - C:\Users\appveyor\AppData\Roaming\npm-cache -> package.json         # npm cache
   - node_modules -> package.json                                        # local npm modules
+  - local-build-bin -> appveyor.yml

@@ -65,6 +65,14 @@ function checkLauncher( tM, launch, browser ) {
             t.ok( !err, 'successfully launched browser' )
             proc = pid
 
+            proc.stdout.on('data', function onStdout( data ) {
+                t.skip('console message : ' + data)
+            })
+            
+            proc.stderr.on('data', function onStdout( data ) {
+                t.fail('error message : ' + data, { skip: true } )
+            })
+
             proc.on('exit', function onBrowserExit( code, signal ) {
                 if( job_done ) {
                     t.ok( code === null, 'exit code is correct')
