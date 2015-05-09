@@ -11,7 +11,7 @@ function createRandomLocalAddress() {
 
 test('detection test', function (tM) {
     launcher(function (err,launch) {
-        tM.ok( !err, 'no error while scanning for browsers' )
+        tM.ok( !err, 'scanned for browsers' )
         launch.browsers.local.forEach( function( brw ) {
             tM.skip( 'detected ' + brw.name + ' version ' + brw.version )
             checkLauncher( tM, launch, brw.name )
@@ -58,7 +58,7 @@ function checkLauncher( tM, launch, browser ) {
 
         var opts = { browser: browser }
         launch( 'http://' + local_addr + ':8000/entrance', opts, function(err, pid) {
-            t.ok( !err, 'no error while launching browser' )
+            t.ok( !err, 'successfully launched browser' )
             proc = pid
 
             proc.on('exit', function onBrowserExit( code, signal ) {
