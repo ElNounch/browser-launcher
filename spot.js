@@ -15,7 +15,7 @@ test('detection check', function (t) {
                 t.pass( 'found "' + brw.name + '" version ' + brw.version )
                 delete expected[brw.name]
             } else {
-                t.fail( 'unexpected "' + brw.name + '" version ' + brw.version, { skip: true } )
+                t.comment( 'unexpected "' + brw.name + '" version ' + brw.version )
             }
         })
         for( notfound in expected ) {

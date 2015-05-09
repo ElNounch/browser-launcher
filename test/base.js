@@ -65,11 +65,11 @@ function checkLauncher( tM, launch, browser ) {
             proc = pid
 
             proc.stdout.on('data', function onStdout( data ) {
-                t.skip('console message : ' + data)
+                t.comment('console message : ' + data)
             })
             
             proc.stderr.on('data', function onStdout( data ) {
-                t.fail('error message : ' + data, { skip: true } )
+                t.comment('error message : ' + data, { skip: true } )
             })
 
             proc.on('exit', function onBrowserExit( code, signal ) {
