@@ -79,7 +79,7 @@ function checkLauncher( tM, launch, browser ) {
                 } else {
                     t.fail( 'unexpected browser quit' )
                 }
-                t.done()
+                t.end()
             })
         })
     })
