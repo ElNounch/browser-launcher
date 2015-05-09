@@ -19,7 +19,7 @@ install:
   # Get the latest stable version of Node.js or io.js
   - ps: Install-Product node $env:nodejs_version
   # Update npm itself
-  - npm install -g npm
+  - npm install -g npm &&
     set PATH=%APPDATA%\npm;%APPVEYOR_BUILD_FOLDER%\node_modules\.bin;%PATH%
   # Install modules
   - npm install
