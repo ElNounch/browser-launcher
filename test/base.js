@@ -64,18 +64,18 @@ function checkLauncher( tM, launch, browser ) {
             t.ok( !err, 'successfully launched browser' )
             proc = pid
 
-            proc.stdout.on('data', function onStdout( data ) {
-                t.comment('console message : ' + data)
+            proc.stdout.on( 'data', function onStdout( data ) {
+                t.comment( 'console message : ' + data )
             })
             
-            proc.stderr.on('data', function onStdout( data ) {
-                t.comment('error message : ' + data, { skip: true } )
+            proc.stderr.on( 'data', function onStderr( data ) {
+                t.comment( 'error message : ' + data )
             })
 
             proc.on('exit', function onBrowserExit( code, signal ) {
                 if( job_done ) {
-                    t.ok( code === null, 'exit code is correct')
-                    t.ok( signal === 'SIGTERM', 'killed by signal')
+                    t.ok( code === null, 'exit code is correct' )
+                    t.ok( signal === 'SIGTERM', 'killed by signal' )
                 } else {
                     t.fail( 'unexpected browser quit' )
                 }

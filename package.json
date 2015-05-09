@@ -29,7 +29,7 @@
     "tape": "^4.0.0"
   },
   "optionalDependencies": {
-    "headlessIE": "~1.0.0"
+    "headless-ie": "~1.0.0"
   },
   "bundledDependencies": [
     "headless"
