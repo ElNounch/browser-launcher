@@ -25,8 +25,7 @@ install:
   - npm install
   # Grab phantomjs
   - ps: |
-      Try { Get-Command "phantomjs.exe" | Out-Null }
-      Catch {
+      If ( -Not (Get-Command "phantomjs1.exe" -ErrorAction SilentlyContinue) ) {
         Start-FileDownload ('https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-' + $env:phantomjs_version + '-windows.zip') -FileName ($env:TEMP + '\phantomjs-windows.zip')
         7z e ($env:TEMP + '\phantomjs-windows.zip') -o($env:APPVEYOR_BUILD_FOLDER + '\node_modules\.bin') -r phantomjs.exe
       }
