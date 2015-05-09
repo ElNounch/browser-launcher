@@ -26,8 +26,9 @@ install:
   # Grab phantomjs
   - ps: |
       If ( -Not (Get-Command "phantomjs.exe" -ErrorValue null -ErrorAction SilentlyContinue) ) {
-        Start-FileDownload ('https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-' + $env:phantomjs_version + '-windows.zip') -FileName ($env:TEMP + '\phantomjs-windows.zip')
-        & 7z e ($env:TEMP + '\phantomjs-windows.zip') -o($env:APPVEYOR_BUILD_FOLDER + '\local-build-bin') -r phantomjs.exe
+        $zipFile = $env:TEMP + '\phantomjs-windows.zip'
+        Start-FileDownload ('https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-' + $env:phantomjs_version + '-windows.zip') -FileName $zipFile
+        & 7z e $zipFile ("-o" + $env:APPVEYOR_BUILD_FOLDER + '\local-build-bin') -r phantomjs.exe
       }
 
 # Post-install test scripts.

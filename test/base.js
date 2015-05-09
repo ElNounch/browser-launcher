@@ -26,7 +26,6 @@ test('detection test', function (tM) {
 
 function checkLauncher( tM, launch, browser ) {
     tM.test('testing ' + browser, { timeout: 30000 }, function (t) {
-        t.plan(5)
         var app = express()
         var server
         var proc
@@ -77,7 +76,10 @@ function checkLauncher( tM, launch, browser ) {
                 if( job_done ) {
                     t.ok( code === null, 'exit code is correct')
                     t.ok( signal === 'SIGTERM', 'killed by signal')
+                } else {
+                    t.fail( 'unexpected browser quit' )
                 }
+                t.done()
             })
         })
     })
