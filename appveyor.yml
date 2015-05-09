@@ -7,12 +7,12 @@ version: 1.0.0-{build}
 environment:
   phantomjs_version: 2.0.0
   matrix:
-    # Test against thus versions of Node.js
     - nodejs_version: 0.12
-    - nodejs_version: 0.10
-    - nodejs_version: 0.8
     # io.js
     - nodejs_version: 1
+    # Previous versions of Node.js
+    - nodejs_version: 0.10
+    - nodejs_version: 0.8
 
 # Install scripts. (runs after repo cloning)
 install:
@@ -24,7 +24,7 @@ install:
   # Install modules
   - npm install
   # Grab phantomjs
-  - ps:
+  - ps: |
       If ( -Not (Get-Command "phantomjs.exe" -ErrorAction SilentlyContinue) ) {
         Start-FileDownload ('https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-' + $env:phantomjs_version + '-windows.zip') -FileName ($env:TEMP + '\phantomjs-windows.zip')
         7z e ($env:TEMP + '\phantomjs-windows.zip') -o($env:APPVEYOR_BUILD_FOLDER + '\node_modules\.bin') -r phantomjs.exe
