@@ -48,14 +48,14 @@ function checkLauncher( tM, launch, browser ) {
           t.pass('javascript worked')
           job_done = true
           clearTimeout( timer )
-          proc.kill()
+          proc.kill('SIGHUP')
           server.close()
         })
 
         server = app.listen(8000, local_addr)
 
         timer = setTimeout( function onTimeOut() {
-            proc.kill()
+            proc.kill('SIGHUP')
             server.close()
         }, 25000)
 
