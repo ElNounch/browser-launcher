@@ -19,7 +19,7 @@ install:
   - npm install
 
 script:
-  - node test/detect.js --expect chrome firefox phantom | tap-spec
+  - node test/detect.js --expect chromium firefox phantom | tap-spec
   - npm test
 
 cache:
