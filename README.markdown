@@ -8,8 +8,8 @@
 [![David dev](https://img.shields.io/david/dev/substack/browser-launcher.svg?style=plastic)](https://github.com/substack/browser-launcher)
 
 # temporary badges
-[![Travis branch](https://img.shields.io/travis/ElNounch/browser-launcher/master.svg?label=Linux&style=plastic)](https://travis-ci.org/ElNounch/browser-launcher)
-[![AppVeyor branch](https://img.shields.io/appveyor/ci/ElNounch/browser-launcher/master.svg?label=Windows&style=plastic)](https://ci.appveyor.com/project/ElNounch/browser-launcher)
+[![Travis branch](https://img.shields.io/travis/ElNounch/browser-launcher.svg?label=Linux&style=plastic)](https://travis-ci.org/ElNounch/browser-launcher)
+[![AppVeyor branch](https://img.shields.io/appveyor/ci/ElNounch/browser-launcher.svg?label=Windows&style=plastic)](https://ci.appveyor.com/project/ElNounch/browser-launcher)
 
 Detect the browser versions available on your system and launch them in an
 isolated profile for automated testing purposes.
