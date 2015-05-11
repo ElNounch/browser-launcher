@@ -36,7 +36,7 @@ test_script:
   # Output useful info for debugging.
   - node --version && npm --version
   # check detection got them all
-  - cmd: node spot.js firefox ie phantom | tap-spec
+  - cmd: node test/detect.js --expect firefox ie phantom | tap-spec
   # run tests
   - cmd: npm test
 

@@ -1,12 +1,16 @@
-var launcher = require('./')
+var launcher = require('../')
 var test = require('tape')
 
 test('detection check', function (t) {
     var expected = {}
 
-    process.argv.slice(2).forEach( function( name ) {
-        expected[name] = true
-    })
+    if( ( process.argv.length >= 2 ) && ( process.argv[2] == '--expect' ) ) {
+        process.argv.slice(3).forEach( function( name ) {
+            expected[name] = true
+        })
+    } else {
+        expected = {}
+    }
 
     launcher.detect(function (available) {
         t.pass('got detection data')

@@ -48,14 +48,14 @@ function checkLauncher( tM, launch, browser ) {
           t.pass('javascript worked')
           job_done = true
           clearTimeout( timer )
-          proc.kill('SIGHUP')
+          proc.kill('SIGTERM')
           server.close()
         })
 
         server = app.listen(8000, local_addr)
 
         timer = setTimeout( function onTimeOut() {
-            proc.kill('SIGHUP')
+            proc.kill('SIGTERM')
             server.close()
         }, 25000)
 
@@ -75,7 +75,7 @@ function checkLauncher( tM, launch, browser ) {
             proc.on('exit', function onBrowserExit( code, signal ) {
                 if( job_done ) {
                     t.ok( code === null, 'exit code is correct' )
-                    t.ok( signal === 'SIGTERM', 'killed by signal' )
+                    t.ok( signal === 'SIGTERM', 'killed by SIGTERM' )
                 } else {
                     t.fail( 'unexpected browser quit' )
                 }
