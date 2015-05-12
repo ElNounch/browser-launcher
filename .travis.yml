@@ -21,6 +21,7 @@ install:
 script:
   - node --version && npm --version
   - node test/detect.js --expect chromium firefox phantom | tap-spec
+  - alias chromium-browser='chromium-browser --no-sandbox'
   - npm test
 
 cache:
