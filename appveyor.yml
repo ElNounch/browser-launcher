@@ -18,21 +18,21 @@ environment:
 # Install scripts. (runs after repo cloning)
 install:
   - ps: |
-    # Get the latest stable version of Node.js or io.js
-    Install-Product node $env:nodejs_version
-    # Update npm itself
-    & npm install -g npm
-    $env:PATH = $env:APPDATA + '\npm;' + $env:APPVEYOR_BUILD_FOLDER + '\local-build-bin;' + $env:APPVEYOR_BUILD_FOLDER +'\node_modules\.bin;' + $env:PATH
-    # Install modules
-    & npm install
-    # Grab phantomjs
-    If ( -Not (Get-Command 'phantomjs.exe' -ErrorAction SilentlyContinue) ) {
-      $zipFile = $env:TEMP + '\phantomjs-windows.zip'
-      $webclient = New-Object System.Net.WebClient
-      $url = 'https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-' + $env:phantomjs_version + '-windows.zip'
-      $webclient.DownloadFile($url,$zipFile)
-      & 7z e $zipFile ('-o' + $env:APPVEYOR_BUILD_FOLDER + '\local-build-bin') -r phantomjs.exe
-    }
+     # Get the latest stable version of Node.js or io.js
+     Install-Product node $env:nodejs_version
+     # Update npm itself
+     & npm install -g npm
+     $env:PATH = $env:APPDATA + '\npm;' + $env:APPVEYOR_BUILD_FOLDER + '\local-build-bin;' + $env:APPVEYOR_BUILD_FOLDER +'\node_modules\.bin;' + $env:PATH
+     # Install modules
+     & npm install
+     # Grab phantomjs
+     If ( -Not (Get-Command 'phantomjs.exe' -ErrorAction SilentlyContinue) ) {
+       $zipFile = $env:TEMP + '\phantomjs-windows.zip'
+       $webclient = New-Object System.Net.WebClient
+       $url = 'https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-' + $env:phantomjs_version + '-windows.zip'
+       $webclient.DownloadFile($url,$zipFile)
+       & 7z e $zipFile ('-o' + $env:APPVEYOR_BUILD_FOLDER + '\local-build-bin') -r phantomjs.exe
+     }
 
 # Post-install test scripts.
 test_script:
