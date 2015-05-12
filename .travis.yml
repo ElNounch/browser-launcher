@@ -7,7 +7,7 @@ node_js:
 #  - "0.8"
 #  - "iojs-v1.0.4"
 before_install:
-  - /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x24 -extension RANDR &&
+  - /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x24 +extension RANDR &&
     export DISPLAY=:99.0
 #    if [! -d local-build-bin/chrome-linux ] then
 #      mkdir -p local-build-bin/chrome-linux

@@ -4,10 +4,10 @@
 [![Travis branch](https://img.shields.io/travis/substack/browser-launcher/master.svg?label=Linux&style=plastic)](https://travis-ci.org/substack/browser-launcher)
 [![AppVeyor branch](https://img.shields.io/appveyor/ci/substack/browser-launcher/master.svg?label=Windows&style=plastic)](https://ci.appveyor.com/project/substack/browser-launcher)
 [![Downloads](https://img.shields.io/npm/dm/browser-launcher.svg?style=plastic)](https://www.npmjs.com/package/browser-launcher)
-[![David](https://img.shields.io/david/substack/browser-launcher.svg?style=plastic)](https://github.com/substack/browser-launcher)
-[![David dev](https://img.shields.io/david/dev/substack/browser-launcher.svg?style=plastic)](https://github.com/substack/browser-launcher)
+[![David](https://img.shields.io/david/substack/browser-launcher.svg?style=plastic)](https://david-dm.org/substack/browser-launcher)
+[![David dev](https://img.shields.io/david/dev/substack/browser-launcher.svg?style=plastic)](https://david-dm.org/substack/browser-launcher#info=devDependencies)
 
-# temporary badges
+## temporary badges
 [![Travis branch](https://img.shields.io/travis/ElNounch/browser-launcher.svg?label=Linux&style=plastic)](https://travis-ci.org/ElNounch/browser-launcher)
 [![AppVeyor branch](https://img.shields.io/appveyor/ci/ElNounch/browser-launcher.svg?label=Windows&style=plastic)](https://ci.appveyor.com/project/ElNounch/browser-launcher)
 
