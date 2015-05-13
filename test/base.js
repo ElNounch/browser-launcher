@@ -9,7 +9,7 @@ function createRandomLocalAddress() {
     return '127.' + upTo(255) + '.' + upTo(255) + '.' + (upTo(252) + 2)
 }
 
-test('detection test', function (tM) {
+test('detection test', { timeout: 120000 }, function (tM) {
     launcher(function (err,launch) {
         if( err ) {
             tM.fail( 'failed scanning for browsers :' + err )
