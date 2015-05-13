@@ -48,6 +48,7 @@ function checkLauncher( t, launch, browser ) {
       res.end()
       t.pass('javascript worked')
       job_done = true
+      require('child_process').spawnSync( 'screenshot', [ 'screenshots/' + browser + '.png' ] )
       clearTimeout( timer )
       proc.kill('SIGTERM')
       server.close()

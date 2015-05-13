@@ -41,6 +41,7 @@ test_script:
   # check detection got them all
   - node test/detect.js --expect firefox ie phantom | tap-spec
   # run tests
+  - mkdir screenshots
   - npm test
 
 # Don't actually build.
@@ -54,5 +55,6 @@ cache:
   - local-build-bin -> appveyor.yml
 
 artifacts:
-  - path: Screenshot.png
-    name: Screenshot
+  - path: screenshots
+    name: Screenshots
+    type: zip
