@@ -52,3 +52,7 @@ cache:
   - C:\Users\appveyor\AppData\Roaming\npm-cache -> package.json         # npm cache
   - node_modules -> package.json                                        # local npm modules
   - local-build-bin -> appveyor.yml
+
+artifacts:
+  - path: Screenshot.png
+    name: Screenshot
