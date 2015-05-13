@@ -15,16 +15,16 @@ before_install:
   # Launch xvfb with resolution 1280x1024x24
   - /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x24 +extension RANDR &&
     export DISPLAY=:99.0
-
-install:
-  - npm install -g npm &&
-    PATH="$TRAVIS_BUILD_DIR/node_modules/.bin:$PATH"
-  - npm install
   # Travis workaround
   - mkdir local-build-bin &&
     PATH="$TRAVIS_BUILD_DIR/local-build-bin:$PATH" &&
     echo "/usr/bin/chromium-browser --no-sandbox" > local-build-bin/chromium-browser &&
     chmod a+x local-build-bin/chromium-browser
+
+install:
+  - npm install -g npm &&
+    PATH="$TRAVIS_BUILD_DIR/node_modules/.bin:$PATH"
+  - npm install
 
 script:
   - node --version && npm --version
