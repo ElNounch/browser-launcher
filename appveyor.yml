@@ -55,6 +55,6 @@ cache:
   - local-build-bin -> appveyor.yml
 
 artifacts:
-  - path: screenshots
+  - path: screenshots\*.png
     name: Screenshots
     type: zip
