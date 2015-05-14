@@ -1,0 +1,53 @@
+version: 1.0.0-{build}
+
+# Stop at first failure ?
+#matrix:
+#  fast_finish: true
+
+environment:
+  phantomjs_version: 2.0.0
+  matrix:
+    - nodejs_version: 0.12
+    # io.js
+#    - nodejs_version: 1
+    # Previous versions
+#    - nodejs_version: 0.10
+#    - nodejs_version: 0.8
+#    - nodejs_version: 0.6
+
+# Install scripts. (runs after repo cloning)
+install:
+  - ps: Install-Product node $env:nodejs_version
+  # Update npm itself.
+  - npm install -g npm
+  - set PATH=%APPDATA%\npm;%APPVEYOR_BUILD_FOLDER%\local-build-bin;%APPVEYOR_BUILD_FOLDER%\node_modules\.bin;%PATH%
+  # Install modules.
+  - npm install
+  # Grab phantomjs.
+  - ps: |
+     If ( -Not (Get-Command 'phantomjs.exe' -ErrorAction SilentlyContinue) ) {
+      $zipFile = $env:TEMP + '\phantomjs-windows.zip'
+      $webclient = New-Object System.Net.WebClient
+      $url = 'https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-' + $env:phantomjs_version + '-windows.zip'
+      $webclient.DownloadFile($url,$zipFile)
+      & 7z e $zipFile ('-o' + $env:APPVEYOR_BUILD_FOLDER + '\local-build-bin') -r phantomjs.exe
+     }
+
+# Post-install test scripts.
+test_script:
+  # Output useful info for debugging.
+  - node --version && npm --version
+  # Check detection got them all.
+  - node test/detect.js --expect ie phantom | tap-spec
+  # Run tests
+  - npm test
+
+# Don't actually build.
+build: off
+
+# Caching npm parts
+cache:
+  - C:\Users\appveyor\AppData\Roaming\npm\node_modules -> package.json  # global npm modules
+  - C:\Users\appveyor\AppData\Roaming\npm-cache -> package.json         # npm cache
+  - node_modules -> package.json                                        # local npm modules
+  - local-build-bin -> appveyor.yml

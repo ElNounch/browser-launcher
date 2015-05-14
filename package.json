@@ -6,6 +6,9 @@
   "bin": {
     "browser-launcher": "bin/cmd.js"
   },
+  "scripts": {
+    "test": "tape test/*.js | tap-spec"
+  },
   "directories": {
     "example": "example",
     "test": "test"
@@ -17,6 +20,11 @@
     "mkdirp": "~0.3.3",
     "plist": "0.2.1",
     "xtend": "^4.0.0"
+  },
+  "devDependencies": {
+    "express": "^4.12.3",
+    "tap-spec": "^3.0.0",
+    "tape": "^4.0.0"
   },
   "bundledDependencies": [
     "headless"
