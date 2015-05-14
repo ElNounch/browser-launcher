@@ -50,8 +50,10 @@ function checkLauncher( t, launch, browser ) {
       t.pass('javascript worked')
       job_done = true
       clearTimeout( timer )
-      proc.kill('SIGTERM')
-      server.close()
+      setImmediate(function() {
+        proc.kill('SIGTERM')
+        server.close()
+      })
     })
 
     server = app.listen(8000, local_addr)
@@ -81,7 +83,6 @@ function checkLauncher( t, launch, browser ) {
             } else {
                 t.fail( 'unexpected browser quit' )
             }
-            setTimeout( t.end, 2000 )
         })
     })
 }
