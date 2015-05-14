@@ -34,6 +34,7 @@ function checkLauncher( t, launch, browser ) {
     var job_done = false
     var local_addr = createRandomLocalAddress()
 
+    t.plan(5)
     app.get('/entrance', function (req, res) {
       res.setHeader('Connection', 'close')
       res.setHeader('Content-Type', 'text/html')
