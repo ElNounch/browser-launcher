@@ -1,6 +1,7 @@
 var launcher = require('../')
 var test = require('tape')
 var express = require('express')
+var byebye = require('byebye')
 
 function createRandomLocalAddress() {
     function upTo( max ) {
@@ -17,7 +18,7 @@ test('detection test', { timeout: 120000 }, function (tM) {
             tM.pass( 'successfully scanned for browsers' )
             launch.browsers.local.forEach( function( brw ) {
                 tM.skip( 'detected ' + brw.name + ' version ' + brw.version )
-                tM.test( 'testing ' + brw.name, { timeout: 30000 }, function( t ) {
+                tM.test( 'testing ' + brw.name, { timeout: 35000 }, function( t ) {
                     checkLauncher( t, launch, brw.name )
                 })
             })
@@ -27,6 +28,7 @@ test('detection test', { timeout: 120000 }, function (tM) {
 })
 
 function checkLauncher( t, launch, browser ) {
+    var http = require('http')
     var app = express()
     var server
     var proc
@@ -34,32 +36,28 @@ function checkLauncher( t, launch, browser ) {
     var job_done = false
     var local_addr = createRandomLocalAddress()
 
-    t.plan(5)
+    t.plan(4)
     app.get('/entrance', function (req, res) {
-      res.setHeader('Connection', 'close')
       res.setHeader('Content-Type', 'text/html')
       res.send('<html><head><script>location.href="/javascript_passed"</script><body></body></html>')
       res.end()
       t.pass('entrance page accessed')
     })
     app.get('/javascript_passed', function (req, res) {
-      res.setHeader('Connection', 'close')
       res.setHeader('Content-Type', 'text/plain')
       res.send('Job done !')
       res.end()
       t.pass('javascript worked')
       job_done = true
       clearTimeout( timer )
-      setImmediate(function() {
-        proc.kill('SIGTERM')
-        server.close()
-      })
+      byebye( proc )
+      server.close()
     })
 
     server = app.listen(8000, local_addr)
 
     timer = setTimeout( function onTimeOut() {
-        proc.kill('SIGTERM')
+        byebye( proc )
         server.close()
     }, 25000)
 
@@ -78,8 +76,7 @@ function checkLauncher( t, launch, browser ) {
 
         proc.on('exit', function onBrowserExit( code, signal ) {
             if( job_done ) {
-                t.ok( code === null, 'exit code is correct' )
-                t.ok( signal === 'SIGTERM', 'killed by SIGTERM' )
+                t.pass( 'browser quitted' )
             } else {
                 t.fail( 'unexpected browser quit' )
             }
