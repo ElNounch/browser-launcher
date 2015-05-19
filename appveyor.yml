@@ -10,8 +10,8 @@ environment:
     - nodejs_version: 0.10
     - nodejs_version: 0.8
 
-#platform:
-#  - x64
+platform:
+  - x64
 #  - x86
 
 install:
